@@ -1,0 +1,37 @@
+import pandas as pd
+import numpy as np
+from sklearn.feature_extraction.text import CountVectorizer
+#from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import BernoulliNB
+
+data = pd.read_json("data.json", lines = True)
+#print(data.loc[0:2])
+
+# transforming columns to clearer variables
+data["is_sarcastic"] = data["is_sarcastic"].map({0:"Not Sarcasm",1:"Sarcasm"})
+
+# removing unnecessary column
+data = data[["headline","is_sarcastic"]]
+x = np.array(data["headline"])
+y = np.array(data["is_sarcastic"])
+
+# Implementing CountVectorizer to transform input data into readable format
+cv = CountVectorizer()
+X = cv.fit_transform(x)
+
+# Training
+clf = BernoulliNB()
+clf.fit(X, y)
+
+import joblib
+joblib.dump(clf, "clf.pkl")
+joblib.dump(cv, "cv.pkl")
+
+"""
+inp = "mom starting to fear son's web series closest thing she will have to grandchild"
+trans = cv.transform([inp]).toarray()
+output = clf.predict(trans)
+print(output)
+output = clf.predict_proba(trans)
+print(max(output[0]))
+"""
