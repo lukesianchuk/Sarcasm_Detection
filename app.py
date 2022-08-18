@@ -3,7 +3,6 @@ from sklearn.feature_extraction.text import CountVectorizer
 import pandas as pd
 import joblib
 
-
 # Declare a Flask app
 app = Flask(__name__)
 
@@ -30,7 +29,7 @@ def main():
         # Get prediction
         prediction = clf.predict(trans)[0]
         probability = clf.predict_proba(trans)
-        probability = (max(probability[0]))
+        probability = round(max(probability[0]),3)*100
         
         
     else:

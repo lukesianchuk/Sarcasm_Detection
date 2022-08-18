@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Your Machine Learning App</title>
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
     </head>
     
     <body>
@@ -13,6 +14,6 @@
         </form>
         <p style="text-align: center;">Result: {{ pred }}</p>
         <br>
-        <p style="text-align: center;">Probability: {{ prob }}</p>
+        <p style="text-align: center;">Probability: {{ prob }}%</p>
     </body>
 </html>
